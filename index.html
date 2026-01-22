@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BleWebler - Open Source BLE Web Labeler</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/fontpicker.min.css" />
 </head>
 
 <body>
@@ -203,6 +204,8 @@
             <input type="text" id="fontFamilyInput" list="fontList" value="Arial" placeholder="Font Family"
               class="flex-grow" />
             <datalist id="fontList"></datalist>
+            <button id="fontPickerBtnVirtual" class="btn btn-secondary" title="Pick Font"></button>
+            <button id="fontPickerBtn" class="btn btn-icon btn-secondary" title="Pick Font">...</button>
             <button id="loadSystemFontsBtn" class="btn btn-icon btn-secondary" title="Load System Fonts">
               <svg class="icon" viewBox="0 0 24 24">
                 <path
@@ -465,6 +468,7 @@
   <!-- QR Code Library - loaded locally for offline support -->
   <script src="js/qrcode.min.js"></script>
   <script src="js/fabric.min.js"></script>
+  <script src="js/fontpicker.iife.min.js"></script>
   <script src="js/printer_base.js" defer></script>
   <script src="js/marklife_p12.js" defer></script>
   <script src="js/printers_supported.js" defer></script>
