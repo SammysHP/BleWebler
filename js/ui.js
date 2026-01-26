@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fontFamilyInput = document.getElementById("fontFamilyInput");
   const fontList = document.getElementById("fontList");
   const loadSystemFontsBtn = document.getElementById("loadSystemFontsBtn");
+  const fontPickerBtn = document.getElementById("fontPickerBtn");
   const fontSizeInput = document.getElementById("fontSize");
   const noBluetoothModal = document.getElementById("noBluetoothModal");
 
@@ -93,6 +94,22 @@ document.addEventListener("DOMContentLoaded", () => {
       updateFontSize(parseInt(event.target.value, 10));
     });
   }
+
+  // Google Fonts picker
+  const fontPicker = new FontPicker('#fontPickerBtnVirtual', {
+    language: 'en',
+    variants: false,
+    showCancelButton: true,
+    saveFavourites: true,
+  });
+  fontPicker.on('pick', (font) => {
+    fontFamilyInput.value = font.family.name;
+    updateFontFamily(font.family.name);
+    fontPicker.clear();
+  });
+  fontPickerBtn.addEventListener("click", (event) => {
+    fontPicker.open();
+  });
 
   // Event listener for loading system fonts
   if (loadSystemFontsBtn) {
