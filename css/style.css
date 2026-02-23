@@ -85,8 +85,8 @@
   }
 }
 
-img,
-svg {
+#container img,
+#container svg {
   display: block;
   max-width: 100%;
 }
@@ -268,6 +268,10 @@ h1 {
 
 .btn-block {
   width: 100%;
+}
+
+#fontPickerBtnVirtual {
+  display: none;
 }
 
 /* Inputs */
