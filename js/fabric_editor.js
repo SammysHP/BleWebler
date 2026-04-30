@@ -1001,19 +1001,20 @@ window.fabricEditor = {
     const activeObject = canvas.getActiveObject();
     if (!activeObject) return;
 
+    activeObject.setCoords();
+
     const bounds = getPaddingBounds();
     const contentWidth = bounds.right - bounds.left;
-    let objectWidth;
+    const objBBox = activeObject.getBoundingRect();
+    const objectWidth = objBBox.width;
     let newLeft;
 
     if (activeObject.type === 'i-text') {
-      objectWidth = activeObject.getScaledWidth();
       // Set text alignment within the object's bounding box (for multi-line text)
       activeObject.set({ textAlign: alignment });
-    } else if (activeObject.type === 'image') {
-      objectWidth = activeObject.getScaledWidth();
-    } else {
-      return; // Not a text or image object, do nothing
+    } else if (activeObject.type !== 'image') {
+      // Not a text or image object, do nothing
+      return;
     }
 
     // Adjust the object's left position to align it within the padding bounds
@@ -1030,7 +1031,9 @@ window.fabricEditor = {
       default:
         return;
     }
-    activeObject.set({ left: newLeft });
+
+    activeObject.left += newLeft - objBBox.left;
+    activeObject.setCoords();
     canvas.renderAll();
   },
 
@@ -1038,17 +1041,17 @@ window.fabricEditor = {
     const activeObject = canvas.getActiveObject();
     if (!activeObject) return;
 
+    activeObject.setCoords();
+
     const bounds = getPaddingBounds();
     const contentHeight = bounds.bottom - bounds.top;
-    let objectHeight;
+    const objBBox = activeObject.getBoundingRect();
+    const objectHeight = objBBox.height;
     let newTop;
 
-    if (activeObject.type === 'i-text') {
-      objectHeight = activeObject.getScaledHeight();
-    } else if (activeObject.type === 'image') {
-      objectHeight = activeObject.getScaledHeight();
-    } else {
-      return; // Not a text or image object, do nothing
+    if (activeObject.type !== 'i-text' && activeObject.type !== 'image') {
+      // Not a text or image object, do nothing
+      return;
     }
 
     switch (alignment) {
@@ -1064,7 +1067,9 @@ window.fabricEditor = {
       default:
         return;
     }
-    activeObject.set({ top: newTop });
+
+    activeObject.top += newTop - objBBox.top;
+    activeObject.setCoords();
     canvas.renderAll();
   },
 
